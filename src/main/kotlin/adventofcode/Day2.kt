@@ -11,14 +11,41 @@ object Day2 {
 
     fun part2(input: List<String>): Int {
         return pairs(input)
-            .map {
-                when (it.second) {
-                    "X" -> 0
-                    "Y" -> 3
-                    "Z" -> 6
-                    else -> 0
-                } + shapeScore2(it)
-            }.sumOf { it }
+            .map { score2(it) + shapeScore2(it) }
+            .sumOf { it }
+    }
+
+    private fun pairs(input: List<String>) = input.map {
+        val split = it.split(" ")
+        split[0] to split[1]
+    }
+
+    // A, X -> rock
+    // B, Y -> paper
+    // C, Z -> scissors
+    private fun score(pair: Pair<String, String>): Int {
+        return when (pair) {
+            "A" to "X", "B" to "Y", "C" to "Z" -> 3 // draw
+            "A" to "Y", "B" to "Z", "C" to "X" -> 6 // I win
+            "A" to "Z", "B" to "X", "C" to "Y" -> 0 // I lose
+            else -> 0
+        }
+    }
+
+    // score based on shape
+    private fun shapeScore(shape: String) = when (shape) {
+        "X" -> 1
+        "Y" -> 2
+        "Z" -> 3
+        else -> 0
+    }
+
+    // score based on lose/draw/win
+    private fun score2(it: Pair<String, String>) = when (it.second) {
+        "X" -> 0
+        "Y" -> 3
+        "Z" -> 6
+        else -> 0
     }
 
     //    X -> lose
@@ -35,30 +62,6 @@ object Day2 {
         "C" to "Y" -> 3
         "C" to "Z" -> 1
         else -> 0
-    }
-
-    private fun pairs(input: List<String>) = input.map {
-        val split = it.split(" ")
-        split[0] to split[1]
-    }
-
-    private fun shapeScore(shape: String) = when (shape) {
-        "X" -> 1
-        "Y" -> 2
-        "Z" -> 3
-        else -> 0
-    }
-
-    // A, X -> rock
-    // B, Y -> paper
-    // C, Z -> scissors
-    private fun score(pair: Pair<String, String>): Int {
-        return when (pair) {
-            "A" to "X", "B" to "Y", "C" to "Z" -> 3
-            "A" to "Y", "B" to "Z", "C" to "X" -> 6
-            "A" to "Z", "B" to "X", "C" to "Y" -> 0
-            else -> 0
-        }
     }
 
     @JvmStatic
