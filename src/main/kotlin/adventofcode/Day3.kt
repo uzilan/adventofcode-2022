@@ -1,5 +1,8 @@
 package adventofcode
 
+import adventofcode.Utils.prep
+import adventofcode.Utils.printResult
+import adventofcode.Utils.readLines
 import kotlin.time.ExperimentalTime
 
 object Day3 {
@@ -39,9 +42,8 @@ object Day3 {
     @JvmStatic
     @OptIn(ExperimentalTime::class)
     fun main(args: Array<String>) {
-        val input = Utils.readLines("day3.txt")
-
-        Utils.printResult("part 1") { part1(input) }
-        Utils.printResult("part 2") { part2(input) }
+        val input = prep("reading") { readLines("day3.txt") }
+        printResult("part 1") { part1(input) }
+        printResult("part 2") { part2(input) }
     }
 }

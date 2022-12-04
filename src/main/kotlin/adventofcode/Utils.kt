@@ -22,6 +22,15 @@ object Utils {
     }
 
     @ExperimentalTime
+    fun <T> prep(message: String, block: () -> T): T {
+        val (result, duration) = measureTimedValue {
+            block()
+        }
+        println("$message: ($duration)")
+        return result
+    }
+
+    @ExperimentalTime
     fun <T> printResult(message: String, block: () -> T) {
         val (result, duration) = measureTimedValue {
             block()
