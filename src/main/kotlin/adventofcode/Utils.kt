@@ -11,10 +11,11 @@ object Utils {
         return File(getSystemResource(fileName).file).readText()
     }
 
-    fun readLines(fileName: String): List<String> {
-        return File(getSystemResource(fileName).file)
+    fun readLines(fileName: String, trim: Boolean = true): List<String> {
+        val readLines = File(getSystemResource(fileName).file)
             .readLines()
-            .map(String::trim)
+        return if (trim) readLines.map(String::trim)
+        else readLines
     }
 
     fun readLinesAsInts(fileName: String): List<Int> {
